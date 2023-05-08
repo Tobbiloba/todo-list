@@ -11,8 +11,8 @@ const HomePage = () => {
 
     return (
         <div
-            className={`${theme == 'true' ? 'bg-black' : 'bg-white'} bg-black h-[100vh] border border-black`}
-        // className="bg-black h-[100vh]"
+            // className={`${theme == 'true' ? 'bg-black' : 'bg-white'} bg-black h-[100vh] border border-black`}
+            className="bg-black h-[100vh]"
         >
             <MenuBar onTheme={handleTheme} />
         </div>
