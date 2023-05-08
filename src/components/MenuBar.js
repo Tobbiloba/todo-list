@@ -16,13 +16,14 @@ const MenuBar = (props) => {
     };
 
     return (
-        <div className="flex flex-row justify-between px-4 py-4">
+        <div className={`flex flex-row justify-between px-4 py-4`}>
             <div className="flex flex-row items-center">
                 <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSshW2NpetcJKgpq6jaRpnFR2uxuGAXWEN8KQ&usqp=CAU"
                     className="w-[36px] h-[36px] rounded-full"
+                    alt='avatar'
                 />
-                <h1 className='text-white ml-4 font-bold text-[14px]'>
+                <h1 className={`${darkMode === true ? 'text-white' : 'text-black'} ml-4 font-bold text-[14px]`}>
                     Welcome back <span className='font-bold text-slate-400'>Tobiloba</span>
                 </h1>
             </div>
@@ -39,7 +40,7 @@ const MenuBar = (props) => {
                         <NightlightRoundIcon
                             className="bg-inherit flex cursor-pointer"
                             onClick={toggleTheme}
-                            style={{ color: 'white' }}
+                            style={{ color: 'black' }}
                         />
                     )}
                 </div>
