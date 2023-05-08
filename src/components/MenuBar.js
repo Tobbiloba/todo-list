@@ -16,7 +16,7 @@ const MenuBar = (props) => {
     };
 
     return (
-        <div className="flex flex-row justify-between px-4 py-2">
+        <div className="flex flex-row justify-between px-4 py-4">
             <div className="flex flex-row items-center">
                 <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSshW2NpetcJKgpq6jaRpnFR2uxuGAXWEN8KQ&usqp=CAU"
