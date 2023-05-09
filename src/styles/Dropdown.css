@@ -3,3 +3,6 @@
   background-color: rgb(114, 114, 114);
   width: 75px;
 }
+::-webkit-scrollbar {
+  display: none;
+}
