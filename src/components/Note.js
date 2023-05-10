@@ -51,7 +51,7 @@ const Note = ({ theme }) => {
             <div className="flex flex-row mt-4 justify-between">
                 <div>
                     <select
-                        className={`border-2 rounded-xl bg-gray-600 font-bold  text-white h-[45px] w-[10px] px-1 ${theme ? 'border-cyan-500' : 'border-gray-500'}`}
+                        className={`border-2 rounded-xl bg-cyan-600 font-bold  text-white h-[45px] w-[10px] px-1 ${theme ? 'border-cyan-500' : 'border-gray-500'}`}
                         id="note-select"
                         value={selectedTag}
                         onChange={(e) => setSelectedTag(parseInt(e.target.value))}
