@@ -55,7 +55,7 @@ const Note = ({ theme }) => {
                         id="note-select"
                         value={selectedTag}
                         onChange={(e) => setSelectedTag(parseInt(e.target.value))}
-                        style={{ width: '100px' }}
+                        style={{ width: '120px' }}
                     >
                         {tag.map((item) => (
                             <option key={item.id} value={item.id}>{item.tag}</option>

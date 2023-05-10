@@ -17,9 +17,9 @@ const Notes = () => {
             {
                 notes.map((item) => {
                     return (
-                        <div key={item.id} className="w-[160px] mx-1 my-3 rounded-xl h-[220px] overflow-hidden flex items-center justify-center">
+                        <div key={item.id} className="w-[155px] mx-2 my-3 rounded-xl h-[220px] overflow-hidden flex items-center justify-center">
                             <Tilt >
-                                <div className='w-[150px] h-[200px] flex flex-col justify-between'>
+                                <div className='w-[145px] h-[200px] flex flex-col justify-between'>
                                     <div>
                                         <h1 className='font-bold'>{item.title}</h1>
                                         <p className='font-light text-[14px]'>{item.date}</p>
