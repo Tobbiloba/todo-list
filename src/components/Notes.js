@@ -25,7 +25,7 @@ const Notes = () => {
                                         <p className='font-light text-[14px]'>{item.date}</p>
                                     </div>
                                     <div className='flex flex-col mt-3'>
-                                        <h1 className='font-light text-[16px]'>{item.note}</h1>
+                                        <h1 className='font-light text-[16px] h-[100px] overflow-y-hidden'>{item.note}</h1>
                                         <div className='flex flex-row justify-between mt-2'>
                                             <ContactSupportIcon />
                                             <SettingsIcon />
