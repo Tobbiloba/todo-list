@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+//navigate
+import { useNavigate } from "react-router-dom";
 //icons
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -7,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 //styles
 import '../styles/Dropdown.css';
 import Notes from "./Notes";
+
 
 const Note = ({ theme }) => {
     const [selectedTag, setSelectedTag] = useState(0);
@@ -38,13 +41,20 @@ const Note = ({ theme }) => {
         setSelectedTag(id);
     };
 
+
+    const navigate = useNavigate()
+
+    function handleClick() {
+        navigate('/write-note')
+    }
+
     return (
         <div className="flex flex-col px-4 mt-4">
             <div
                 className={`flex flex-row justify-between items-center ${theme ? "text-white" : "text-black"}`}
             >
                 <h1 className="text-4xl font-mono font-bold">Your Notes</h1>
-                <div className="border px-3 outline-none rounded-xl pt-1">
+                <div className="border px-3 outline-none rounded-xl pt-1" onClick={handleClick}>
                     <h1 className="text-2xl">+</h1>
                 </div>
             </div>
