@@ -1,5 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
+import Alert from '@mui/material/Alert';
 
 
 //useref
@@ -42,7 +43,7 @@ const WriteNote = () => {
         const totalCount = titleLength + bodyLength;
 
         setCount(totalCount >= 0 ? totalCount : 0);
-        console.log(count)
+        // console.log(count)
     }, [title, body]);
 
 
@@ -78,16 +79,50 @@ const WriteNote = () => {
         }
     }
 
-    const saveNote = () => {
+    const [message, setMessage] = useState('');
+    const [showMessage, setShowMessage] = useState(false);
+    const [sev, setSev] = useState('');
 
-    }
+    const saveNote = () => {
+        if (title === '' && body === '') {
+            setSev('error');
+            setMessage("Can't save empty fields");
+            setShowMessage(true);
+            setTimeout(() => {
+                setShowMessage(false);
+            }, 5000); // Set timeout for 5 seconds (5000 milliseconds)
+        }
+        else if (title === '') {
+            setSev('error');
+            setMessage('Title is empty');
+            setShowMessage(true);
+            setTimeout(() => {
+                setShowMessage(false);
+            }, 5000); // Set timeout for 5 seconds (5000 milliseconds)
+        } else if (body === '') {
+            setSev('error');
+            setMessage('Body is empty');
+            setShowMessage(true);
+            setTimeout(() => {
+                setShowMessage(false);
+            }, 5000); // Set timeout for 5 seconds (5000 milliseconds)
+        } else {
+            setSev('success');
+            setMessage('Successfully saved this note');
+            setShowMessage(true);
+            setTimeout(() => {
+                setShowMessage(false);
+                handleClick();
+            }, 5000);
+        }
+    };
 
 
     return (
         <div className="bg-black flex flex-col h-[100vh] pt-8">
             <div className='flex flex-row px-2 h-[45px] w-full justify-between  fixed'>
                 <CloseIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={previousPage} />
-                <CheckIcon className='stroke-slate-300' style={{ fontSize: '32px' }} />
+                <CheckIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={saveNote} />
             </div>
             <div className=' px-2 mt-20'>
                 <div>
@@ -117,6 +152,14 @@ const WriteNote = () => {
                 </div>
             }
 
+            {
+                showMessage && (
+                    <div className='absolute z-10'>
+                        <Alert severity={`${sev}`}>{message}</Alert>
+                        {/* <h1 className='text-white'>Nice</h1> */}
+                    </div>
+                )
+            }
 
 
 
