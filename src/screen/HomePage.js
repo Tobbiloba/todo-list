@@ -2,6 +2,7 @@ import { useState } from 'react';
 import MenuBar from '../components/MenuBar';
 import Note from '../components/Note';
 
+
 const HomePage = () => {
     const [theme, setTheme] = useState('');
     const handleTheme = (theme) => {
