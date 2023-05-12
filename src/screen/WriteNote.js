@@ -59,13 +59,34 @@ const WriteNote = () => {
         setDatePrefix(datePrefix);
     }, []);
 
-    console.log(datePrefix);
+    // console.log(datePrefix);
+    const [showDiscard, setShowDiscard] = useState(false)
+
+    const showWarning = () => {
+        setShowDiscard(true)
+    }
+
+    const closeDiscard = () => {
+        setShowDiscard(false)
+    }
+
+    const previousPage = () => {
+        if (title === '' && body === '') {
+            handleClick()
+        } else {
+            showWarning()
+        }
+    }
+
+    const saveNote = () => {
+
+    }
 
 
     return (
         <div className="bg-black flex flex-col h-[100vh] pt-8">
             <div className='flex flex-row px-2 h-[45px] w-full justify-between  fixed'>
-                <CloseIcon className='stroke-slate-300' style={{ fontSize: '32px' }} />
+                <CloseIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={previousPage} />
                 <CheckIcon className='stroke-slate-300' style={{ fontSize: '32px' }} />
             </div>
             <div className=' px-2 mt-20'>
@@ -79,6 +100,24 @@ const WriteNote = () => {
                     <textarea className='w-full outline-none text-white border-none text-xl bg-inherit h-[70vh]' value={body} onInput={handleBodyChange}></textarea>
                 </div>
             </div>
+            {
+                showDiscard && <div className='absolute flex flex-col h-[95vh] w-[100vw] px-4 backdrop-blur-sm bg-white/30 rounded-2xl text-white py-12 justify-between'>
+                    <div className='flex justify-end items-end'>
+                        <CloseIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={closeDiscard} />
+                    </div>
+                    <div className='flex text-center items-center justify-center'>
+                        <h1 className='text-slate-500 text-2xl font-mono'>You have an unsaved note</h1>
+                    </div>
+
+
+                    <div className='justify-between flex'>
+                        <button className='w-32 py-4 rounded-xl bg-white text-black text-xl font-mono font-bold' onClick={handleClick}>Discard</button>
+                        <button className='w-32 py-4 rounded-xl bg-white text-black text-xl font-mono font-bold' onClick={saveNote}>Save</button>
+                    </div>
+                </div>
+            }
+
+
 
 
         </div>
