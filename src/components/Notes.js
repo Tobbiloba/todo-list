@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 //dummy notes
 import notes from '../data/notes'
@@ -10,10 +11,33 @@ import Tilt from 'react-vanilla-tilt'
 //icons
 import SettingsIcon from '@mui/icons-material/Settings';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
-const Notes = () => {
+const Notes = ({ theme }) => {
+    const [loading, setLoading] = useState(true)
+    const [notes, setNotes] = useState([])
+    const [about, setAbout] = useState(false)
+
+    const showAbout = (id) => {
+        console.log(id)
+    }
+
+    useEffect(() => {
+        function loadTask() {
+            const data = localStorage.getItem("Notes");
+            if (data !== null) {
+                setNotes(JSON.parse(data));
+            }
+        }
+        loadTask();
+
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+
+    }, []);
 
     return (
-        <div className='flex flex-wrap mt-12 items-center justify-center h-[520px] overflow-y-scroll'>
+        <div className='flex flex-wrap mt-12  h-[520px] overflow-y-scroll'>
             {
                 notes.map((item) => {
                     return (
@@ -25,9 +49,9 @@ const Notes = () => {
                                         <p className='font-light text-[14px]'>{item.date}</p>
                                     </div>
                                     <div className='flex flex-col mt-3'>
-                                        <h1 className='font-light text-[16px] h-[100px] overflow-y-hidden'>{item.note}</h1>
+                                        <h1 className='font-light text-[16px] h-[100px] overflow-y-hidden'>{item.body}</h1>
                                         <div className='flex flex-row justify-between mt-2'>
-                                            <ContactSupportIcon />
+                                            <ContactSupportIcon onClick={showAbout(item.id)} />
                                             <SettingsIcon />
                                         </div>
                                     </div>
@@ -38,6 +62,14 @@ const Notes = () => {
 
                     )
                 })
+            }
+
+            {
+                loading
+                &&
+                <div className={`absolute flex items-center justify-center w-[100vw] h-[520px]  ${theme === true ? 'bg-black' : 'bg-white'}`}>
+                    <CircularProgress />
+                </div>
             }
         </div>
     )

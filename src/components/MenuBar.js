@@ -6,8 +6,10 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 const MenuBar = (props) => {
     const [darkMode, setDarkMode] = useState(true);
 
+
     useEffect(() => {
         props.onTheme(darkMode);
+        // loadTask()
     }, [darkMode, props]);
 
     const toggleTheme = () => {

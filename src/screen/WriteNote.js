@@ -1,7 +1,9 @@
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import Alert from '@mui/material/Alert';
+import { v4 as uuidV4 } from 'uuid'
 
+// import StoreNoteComponent from '../components/StoreNote' // Renamed the import
 
 //useref
 import { useRef, useEffect, useState } from 'react';
@@ -12,7 +14,8 @@ const WriteNote = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [count, setCount] = useState(0);
-
+    const [id, setId] = useState('')
+    const [saveCurrentNote, setSaveCurrentNote] = useState(false)
 
 
     const handleTitleChange = (event) => {
@@ -32,6 +35,7 @@ const WriteNote = () => {
     const input = useRef(null);
 
     useEffect(() => {
+        setId(uuidV4())
         if (input.current) {
             input.current.focus();
         }
@@ -82,6 +86,25 @@ const WriteNote = () => {
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState(false);
     const [sev, setSev] = useState('');
+    const [showTag, setShowTag] = useState(false)
+
+    const [tag, setTag] = useState('#general');
+
+
+    const handleTagChange = (event) => {
+        setTag(event.target.value);
+    };
+
+    const newNote = {
+        id: uuidV4(),
+        date: datePrefix,
+        char: count,
+        title: title,
+        body: body,
+        tag: tag.substring(1)
+    };
+
+    // ...
 
     const saveNote = () => {
         if (title === '' && body === '') {
@@ -91,8 +114,7 @@ const WriteNote = () => {
             setTimeout(() => {
                 setShowMessage(false);
             }, 5000); // Set timeout for 5 seconds (5000 milliseconds)
-        }
-        else if (title === '') {
+        } else if (title === '') {
             setSev('error');
             setMessage('Title is empty');
             setShowMessage(true);
@@ -107,15 +129,35 @@ const WriteNote = () => {
                 setShowMessage(false);
             }, 5000); // Set timeout for 5 seconds (5000 milliseconds)
         } else {
-            setSev('success');
-            setMessage('Successfully saved this note');
-            setShowMessage(true);
-            setTimeout(() => {
-                setShowMessage(false);
-                handleClick();
-            }, 5000);
+            setShowTag(true);
         }
     };
+
+    const save = () => {
+        setShowTag(false);
+        setSev('success');
+        setMessage('Successfully saved this note');
+        setShowMessage(true);
+        setTimeout(() => {
+            setShowMessage(false);
+            const updatedNote = {
+                ...newNote,
+                id: uuidV4() // Generate a new id for each save
+            };
+            storeNote(updatedNote);
+        }, 5000);
+    };
+
+    const storeNote = (note) => {
+        // Retrieve existing notes from the local storage
+        const existingNotes = JSON.parse(localStorage.getItem('Notes')) || [];
+        // Add the new note to the existing notes
+        const updatedNotes = [...existingNotes, note];
+        // Store the updated notes in the local storage
+        localStorage.setItem('Notes', JSON.stringify(updatedNotes));
+        handleClick()
+    };
+
 
 
     return (
@@ -136,7 +178,7 @@ const WriteNote = () => {
                 </div>
             </div>
             {
-                showDiscard && <div className='absolute flex flex-col h-[95vh] w-[100vw] px-4 backdrop-blur-sm bg-white/30 rounded-2xl text-white py-12 justify-between'>
+                showDiscard && <div className='absolute flex flex-col h-[100vh] top-0 w-[100vw] px-4 backdrop-blur-sm bg-white/30 rounded-2xl text-white py-12 justify-between'>
                     <div className='flex justify-end items-end'>
                         <CloseIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={closeDiscard} />
                     </div>
@@ -159,6 +201,16 @@ const WriteNote = () => {
                         {/* <h1 className='text-white'>Nice</h1> */}
                     </div>
                 )
+            }
+
+            {
+                showTag && <div className='absolute top-0 h-[100vh] w-[100vw] flex flex-col items-center justify-center'>
+                    <div className='w-[80vw] bg-slate-600 rounded-xl py-12 flex flex-col items-center justify-center'>
+                        <input className=" bg-inherit outline-none border border-b-white border-slate-600 w-[70vw] mb-6 h-[40px] font-normal text-white font-mono text-xl" placeholder='tag' value={tag} onInput={handleTagChange} />
+                        <button onClick={save} className='w-fit px-7 rounded-xl py-3 border text-white hover:bg-white hover:text-slate-600'>Save</button>
+                    </div>
+
+                </div>
             }
 
 
