@@ -145,7 +145,7 @@ const WriteNote = () => {
                 id: uuidV4() // Generate a new id for each save
             };
             storeNote(updatedNote);
-        }, 5000);
+        }, 1500);
     };
 
     const storeNote = (note) => {
@@ -161,7 +161,7 @@ const WriteNote = () => {
 
 
     return (
-        <div className="bg-black flex flex-col h-[100vh] pt-8">
+        <div className="bg-black flex flex-col h-[100vh] pt-8 overflow-hidden">
             <div className='flex flex-row px-2 h-[45px] w-full justify-between  fixed'>
                 <CloseIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={previousPage} />
                 <CheckIcon className='stroke-slate-300' style={{ fontSize: '32px' }} onClick={saveNote} />
