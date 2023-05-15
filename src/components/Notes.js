@@ -39,9 +39,9 @@ const Notes = ({ theme }) => {
     }, []);
 
     return (
-        <div className="flex flex-wrap mt-12 pb-3 h-[530px] overflow-y-scroll">
+        <div className="flex flex-wrap mt-12  h-[520px] overflow-y-scroll">
             {notes.map((item) => (
-                <div key={item.id} className="w-[155px] mx-2 my-2 rounded-xl h-[220px] overflow-hidden flex items-center justify-center">
+                <div key={item.id} className="w-[155px] mx-2 my-2 rounded-xl h-[220px] pb-3 overflow-hidden flex items-center justify-center">
                     <Tilt>
                         <div className="w-[145px] h-[200px] flex flex-col justify-between">
                             <div>
