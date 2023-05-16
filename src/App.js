@@ -1,5 +1,6 @@
 import HomePage from "./screen/HomePage";
 import WriteNote from "./screen/WriteNote";
+import UpdateNote from "./screen/UpdateNote";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,6 +12,7 @@ import {
 const routes = [
   <Route path="/" element={<HomePage />} />,
   <Route path="/write-note" element={<WriteNote />} />,
+  <Route path="/edit/:_id" element={<WriteNote />} />,
 ]
 
 const router = createBrowserRouter(createRoutesFromElements(routes))

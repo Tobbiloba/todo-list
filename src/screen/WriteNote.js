@@ -142,7 +142,7 @@ const WriteNote = () => {
             setShowMessage(false);
             const updatedNote = {
                 ...newNote,
-                id: uuidV4() // Generate a new id for each save
+                id: uuidV4() //                                                                                                            Generate a new id for each save
             };
             storeNote(updatedNote);
         }, 1500);
