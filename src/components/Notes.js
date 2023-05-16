@@ -87,7 +87,7 @@ const Notes = ({ theme }) => {
                                     </div>
                                 </div>
                                 {showSettings && id === item.id && (
-                                    <div className='relative bottom-20'>
+                                    <div className='relative bottom-28'>
                                         <div className='flex justify-end items-end'>
                                             <CloseIcon onClick={() => setShowSettings(false)} />
                                         </div>
