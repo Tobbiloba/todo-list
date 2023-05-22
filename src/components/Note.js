@@ -1,22 +1,21 @@
 import { useState, useEffect } from "react";
 
-//navigate
+// navigate
 import { useNavigate } from "react-router-dom";
-//icons
+// icons
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import MenuIcon from "@mui/icons-material/Menu";
 
-//styles
+// styles
 import "../styles/Dropdown.css";
 import Notes from "./Notes";
 
 const Note = ({ theme }) => {
-    const [selectedTag, setSelectedTag] = useState(0);
-
+    const [selectedTag, setSelectedTag] = useState("all");
 
     const selected = (id) => {
         setSelectedTag(id);
-        console.log(id)
+        console.log(id);
     };
 
     const navigate = useNavigate();
@@ -37,6 +36,8 @@ const Note = ({ theme }) => {
         loadTask();
     }, []);
 
+    const uniqueTags = ["all", ...new Set(notes.map((item) => item.tag))];
+
     return (
         <div className="flex flex-col px-4 mt-4">
             <div
@@ -54,15 +55,16 @@ const Note = ({ theme }) => {
             <div className="flex flex-row mt-4 justify-between">
                 <div>
                     <select
-                        className={`border-2 rounded-xl bg-cyan-600 font-bold text-white h-[45px] w-[10px] px-1 ${theme ? "border-cyan-500" : "border-gray-500"}`}
+                        className={`border-2 rounded-xl bg-cyan-600 font-bold text-white h-[45px] w-[10px] px-1 ${theme ? "border-cyan-500" : "border-gray-500"
+                            }`}
                         id="note-select"
-                        value={selectedTag.toString()} // Convert selectedTag to a string
-                        onChange={(e) => setSelectedTag(parseInt(e.target.value))}
+                        value={selectedTag}
+                        onChange={(e) => setSelectedTag(e.target.value)}
                         style={{ width: "120px" }}
                     >
-                        {notes.map((item) => (
-                            <option key={item.id} value={item.id.toString()}> {/* Convert item.id to a string */}
-                                {item.tag}
+                        {uniqueTags.map((tag, index) => (
+                            <option key={index} value={tag}>
+                                {tag}
                             </option>
                         ))}
                     </select>
@@ -70,18 +72,21 @@ const Note = ({ theme }) => {
                 {/* ... */}
             </div>
             <div className="flex overflow-y-hidden flew-row mt-6">
-                {notes.map((item) => (
-                    <div
-                        key={item.id}
-                        className={`mr-4 border px-4 py-1 bg-black text-white rounded-[10px] ${selectedTag === item.id
-                            ? "border-none bg-cyan-400"
-                            : "border-slate-300"
-                            }`}
-                        onClick={() => setSelectedTag(item.id)}
-                    >
-                        <h1>#{item.tag}</h1>
-                    </div>
-                ))}
+                {uniqueTags.map((tag, index) => {
+                    const isSelected = selectedTag === tag;
+                    return (
+                        <div
+                            key={index}
+                            className={`mr-4 border px-4 py-1 bg-black text-white rounded-[10px] ${isSelected
+                                ? "border-none bg-cyan-400"
+                                : "border-slate-300"
+                                }`}
+                            onClick={() => setSelectedTag(tag)}
+                        >
+                            <h1>#{tag}</h1>
+                        </div>
+                    );
+                })}
             </div>
 
             <Notes theme={theme} />

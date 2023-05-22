@@ -4,6 +4,8 @@ import Tilt from 'react-vanilla-tilt';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import CloseIcon from '@mui/icons-material/Close';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = ({ theme }) => {
     const [loading, setLoading] = useState(false);
@@ -64,6 +66,12 @@ const Notes = ({ theme }) => {
         }, 3000);
     }, []);
 
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate("/edit");
+    }
+
     return (
         <div className="flex flex-wrap mt-12  h-[520px] overflow-y-scroll">
             {notes.length === 0 ? (
@@ -92,7 +100,13 @@ const Notes = ({ theme }) => {
                                             <CloseIcon onClick={() => setShowSettings(false)} />
                                         </div>
                                         <div className="bg-slate-200 z-10 border flex flex-col  py-4 rounded-xl">
-                                            <button>Edit</button>
+
+                                            <div className='border border-white flex item-center justify-center'>
+                                                <Link to={`/edit/${item.id}`}>
+                                                    <button>Edit</button>
+                                                </Link>
+                                            </div>
+
                                             <button className="text-red-500 mt-1" onClick={() => deleteNote(item.id)}>Delete</button>
                                         </div>
                                     </div>

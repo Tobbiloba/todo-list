@@ -12,7 +12,7 @@ import {
 const routes = [
   <Route path="/" element={<HomePage />} />,
   <Route path="/write-note" element={<WriteNote />} />,
-  <Route path="/edit/:_id" element={<WriteNote />} />,
+  <Route path="/edit/:_id" element={<UpdateNote />} />,
 ]
 
 const router = createBrowserRouter(createRoutesFromElements(routes))
